@@ -140,7 +140,7 @@ Escala usada:
 | M-13 | Resuelto el 2026-10-26 | Panel del chat cargado con `next/dynamic` y un único `IntersectionObserver` compartido para los reveals. Verificado en build y tests. |
 | L-01 | Resuelto el 2026-10-26 | Los enlaces de email y LinkedIn del menú móvil cierran el overlay (parte de M-08). |
 | L-09 | Resuelto el 2026-10-26 | El parser SSE procesa el buffer final sin salto de línea (parte de M-12). |
-| L-10 | Parcialmente resuelto el 2026-10-26 | Cerrar el chat y detener abortan el stream; autoscroll inteligente y persistencia siguen abiertos. |
+| L-10 | Resuelto (sin persistencia) el 2026-10-26 | Cerrar y detener abortan el stream; el autoscroll respeta al lector que subió. No se agregó persistencia para no contradecir la política de privacidad; el hallazgo la marcaba como opcional. |
 | L-02 | Resuelto el 2026-10-26 | `serializeJsonLd` escapa `<`, `>`, `&`, U+2028 y U+2029; test incluido. |
 | L-03 | Resuelto el 2026-10-26 | La OG image usa `profile`; se documentó el fallback de fuente y se agregó una prueba e2e de la imagen. |
 | L-04 | Resuelto el 2026-10-26 | `robots.ts` y `sitemap.ts` usan `siteUrl`; tests y e2e incluidos. |

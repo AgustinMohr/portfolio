@@ -8,6 +8,7 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 import { profile } from "@/lib/data";
+import { isNearBottom } from "@/lib/scroll";
 import {
   twinSuggestions,
   twinWelcome,
@@ -53,6 +54,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const panelRef = useRef<HTMLDialogElement>(null);
+  const stickToBottomRef = useRef(true);
 
   const lastMessage = messages[messages.length - 1];
   const canRetry =
@@ -74,6 +76,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
     }
 
     if (!dialog.open) dialog.showModal();
+    stickToBottomRef.current = true;
 
     const frame = window.requestAnimationFrame(() => inputRef.current?.focus());
     const mobile = window.matchMedia("(max-width: 639px)");
@@ -96,13 +99,20 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
     if (!open) return;
 
     const node = scrollRef.current;
-    if (!node) return;
+    if (!node || !stickToBottomRef.current) return;
 
     node.scrollTo({
       top: node.scrollHeight,
       behavior: isStreaming ? "auto" : "smooth",
     });
   }, [messages, isStreaming, open]);
+
+  function handleLogScroll() {
+    const node = scrollRef.current;
+    if (!node) return;
+
+    stickToBottomRef.current = isNearBottom(node);
+  }
 
   function closeChat() {
     abortRef.current?.abort();
@@ -222,6 +232,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
       content,
     };
     const history = [...messages, userMessage];
+    stickToBottomRef.current = true;
 
     setMessages(history);
     setInput("");
@@ -243,6 +254,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
 
   function reset() {
     if (isStreaming) return;
+    stickToBottomRef.current = true;
     setMessages([welcomeMessage]);
     setError("");
     setAnnouncement("");
@@ -341,6 +353,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
         role="log"
         aria-live="off"
         aria-busy={isStreaming}
+        onScroll={handleLogScroll}
         className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain px-4 py-5"
       >
         {messages.map((message) => {
