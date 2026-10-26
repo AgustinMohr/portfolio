@@ -82,6 +82,7 @@ portfolio-web/
 │   │   ├── json-ld.ts              # safe JSON-LD serializer
 │   │   ├── mailto.ts               # mail client fallback
 │   │   ├── reveal-observer.ts      # shared IntersectionObserver
+│   │   ├── scroll.ts               # near-bottom check for chat autoscroll
 │   │   ├── site.ts                 # canonical site URL source
 │   │   ├── twin-body.ts            # byte-capped JSON body reader
 │   │   ├── twin-guard.ts           # server-only origin and rate-limit guard
