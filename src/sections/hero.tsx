@@ -8,7 +8,7 @@ function MarqueeList() {
       {marqueeItems.map((item) => (
         <span
           key={item}
-          className="flex shrink-0 items-center gap-6 pr-6 font-mono text-[10px] uppercase tracking-[0.2em] whitespace-nowrap text-ash"
+          className="flex shrink-0 items-center gap-6 pr-6 font-mono text-xs uppercase tracking-[0.2em] whitespace-nowrap text-ash"
         >
           {item}
           <span className="h-1 w-1 rounded-full bg-acid/70" />
@@ -136,7 +136,7 @@ export function Hero() {
                   <span className="label text-ash">
                     Perfil / {siteYear}
                   </span>
-                  <span className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-acid">
+                  <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-acid">
                     <span className="pulse-dot h-1 w-1 rounded-full bg-acid" />
                     Disponible
                   </span>

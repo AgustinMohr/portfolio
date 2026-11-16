@@ -38,7 +38,7 @@ export function Trajectory() {
                   <p className="mt-1 text-sm text-ash">
                     UTN · Facultad Regional Santa Fe
                   </p>
-                  <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-acid">
+                  <p className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-acid">
                     {profile.startedAt} — En curso · {profile.year}
                   </p>
                 </div>
@@ -77,7 +77,7 @@ export function Trajectory() {
                       <p className="mt-1 text-sm text-bone/80">
                         {item.subtitle}
                       </p>
-                      <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ash">
+                      <p className="mt-1 font-mono text-xs uppercase tracking-[0.16em] text-ash">
                         {item.org}
                       </p>
                       <p className="mt-4 max-w-xl text-sm leading-relaxed text-ash">
@@ -87,7 +87,7 @@ export function Trajectory() {
                         {item.tags.map((tag) => (
                           <li
                             key={tag}
-                            className="border border-line px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ash transition-colors duration-300 group-hover:border-line-strong"
+                            className="border border-line px-2.5 py-1 font-mono text-xs uppercase tracking-[0.12em] text-ash transition-colors duration-300 group-hover:border-line-strong"
                           >
                             {tag}
                           </li>

@@ -272,7 +272,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
             >
               Gemelo digital
             </p>
-            <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.18em] text-ash">
+            <p className="mt-1 font-mono text-xs uppercase tracking-[0.18em] text-ash">
               IA · perfil de Agustín
             </p>
           </div>
@@ -320,7 +320,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
               }
             >
               {isAssistant ? (
-                <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center border border-line-strong bg-void font-mono text-[8px] text-acid">
+                <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center border border-line-strong bg-void font-mono text-xs text-acid">
                   {profile.initials}
                 </span>
               ) : null}
@@ -372,7 +372,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
                   key={suggestion}
                   type="button"
                   onClick={() => sendMessage(suggestion)}
-                  className="border border-line px-2.5 py-1.5 text-left text-[11px] leading-snug text-ash transition-colors hover:border-acid hover:text-acid"
+                  className="border border-line px-2.5 py-1.5 text-left text-xs leading-snug text-ash transition-colors hover:border-acid hover:text-acid"
                 >
                   {suggestion}
                 </button>
@@ -392,14 +392,14 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
                 <button
                   type="button"
                   onClick={retry}
-                  className="font-mono text-[10px] uppercase tracking-[0.16em] text-acid hover:underline"
+                  className="font-mono text-xs uppercase tracking-[0.16em] text-acid hover:underline"
                 >
                   Reintentar
                 </button>
               ) : null}
               <a
                 href={`mailto:${profile.email}`}
-                className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ash transition-colors hover:text-bone"
+                className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.16em] text-ash transition-colors hover:text-bone"
               >
                 <MailIcon className="h-3 w-3" />
                 Escribir a Agustín
@@ -432,7 +432,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
             maxLength={1200}
             placeholder="Preguntame sobre mi carrera."
             aria-label="Escribí tu pregunta para el gemelo digital"
-            className="max-h-28 min-h-10 flex-1 resize-none bg-transparent px-2.5 py-2 text-[13px] leading-relaxed text-bone outline-none placeholder:text-ash/60"
+            className="max-h-28 min-h-10 flex-1 resize-none bg-transparent px-2.5 py-2 text-[13px] leading-relaxed text-bone outline-none placeholder:text-ash/85"
           />
           {isStreaming ? (
             <button
@@ -455,7 +455,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
           )}
         </div>
         <div className="mt-2 flex items-center justify-between gap-3 px-1">
-          <p className="text-[10px] leading-relaxed text-ash">
+          <p className="text-xs leading-relaxed text-ash">
             Tus mensajes se procesan con OpenRouter y un modelo de IA de
             terceros, que puede registrarlos. No compartas información
             sensible. Puede equivocarse.{" "}
@@ -468,7 +468,7 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
               Privacidad
             </a>
           </p>
-          <p className="hidden font-mono text-[9px] uppercase tracking-[0.14em] text-ash sm:block">
+          <p className="hidden font-mono text-xs uppercase tracking-[0.14em] text-ash sm:block">
             Enter envía
           </p>
         </div>

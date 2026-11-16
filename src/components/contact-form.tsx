@@ -95,7 +95,7 @@ export function ContactForm() {
       <p
         role="status"
         aria-live="polite"
-        className="min-h-5 font-mono text-[10px] uppercase tracking-[0.16em] text-acid"
+        className="min-h-5 font-mono text-xs uppercase tracking-[0.16em] text-acid"
       >
         {status}
       </p>

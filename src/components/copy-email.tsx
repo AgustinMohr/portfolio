@@ -42,7 +42,7 @@ export function CopyEmail() {
       <button
         type="button"
         onClick={handleCopy}
-        className="btn btn-ghost px-4 py-2.5 text-[11px] uppercase tracking-[0.16em]"
+        className="btn btn-ghost px-4 py-2.5 text-xs uppercase tracking-[0.16em]"
       >
         {copied ? (
           <CheckIcon className="h-3.5 w-3.5 text-acid" />

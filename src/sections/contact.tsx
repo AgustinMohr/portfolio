@@ -87,7 +87,7 @@ export function Contact() {
                   <span className="inline-flex items-center gap-2 text-sm text-bone">
                     <MapPinIcon className="h-4 w-4 text-acid" />
                     {profile.location}
-                    <span className="hidden font-mono text-[10px] tracking-[0.14em] text-ash sm:inline">
+                    <span className="hidden font-mono text-xs tracking-[0.14em] text-ash sm:inline">
                       {profile.coordinates}
                     </span>
                   </span>

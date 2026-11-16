@@ -10,7 +10,7 @@ const TwinChatPanel = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="fixed bottom-4 right-4 z-30 rounded-full border border-line-strong bg-void/90 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ash sm:bottom-6 sm:right-6">
+      <div className="fixed bottom-4 right-4 z-30 rounded-full border border-line-strong bg-void/90 px-4 py-2 font-mono text-xs uppercase tracking-[0.16em] text-ash sm:bottom-6 sm:right-6">
         Cargando…
       </div>
     ),
@@ -98,7 +98,7 @@ export function TwinChat() {
             <span className="block text-[12px] font-medium tracking-tight text-bone">
               Gemelo digital
             </span>
-            <span className="hidden font-mono text-[8px] uppercase tracking-[0.16em] text-ash sm:block">
+            <span className="hidden font-mono text-xs uppercase tracking-[0.16em] text-ash sm:block">
               Preguntale a mi IA
             </span>
           </span>

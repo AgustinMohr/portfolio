@@ -82,11 +82,11 @@ export function Portfolio() {
                   </span>
                 </div>
 
-                <div className="md:col-span-4">
+                <div className="md:col-span-3">
                   <h3 className="text-2xl tracking-tight text-bone transition-colors duration-300 group-hover:text-acid md:text-3xl">
                     {project.title}
                   </h3>
-                  <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ash">
+                  <p className="mt-1.5 font-mono text-xs uppercase tracking-[0.16em] text-ash">
                     {project.kicker}
                   </p>
                 </div>
@@ -99,7 +99,7 @@ export function Portfolio() {
                     {project.tags.map((tag) => (
                       <li
                         key={tag}
-                        className="border border-line px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ash"
+                        className="border border-line px-2.5 py-1 font-mono text-xs uppercase tracking-[0.12em] text-ash"
                       >
                         {tag}
                       </li>
@@ -107,12 +107,12 @@ export function Portfolio() {
                   </ul>
                 </div>
 
-                <div className="flex items-center justify-end gap-3 md:col-span-3 md:gap-6">
-                  <span className="label hidden items-center gap-2 border border-line px-3 py-1.5 text-ash md:inline-flex">
+                <div className="flex items-center justify-end gap-3 md:col-span-4 md:gap-6">
+                  <span className="label hidden items-center gap-2 whitespace-nowrap border border-line px-3 py-1.5 tracking-[0.12em] text-ash md:inline-flex">
                     <span className="h-1 w-1 rounded-full bg-acid" />
                     {project.status}
                   </span>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ash transition-colors group-hover:text-acid">
+                  <span className="whitespace-nowrap font-mono text-xs uppercase tracking-[0.12em] text-ash transition-colors group-hover:text-acid">
                     Ver repositorio
                   </span>
                   <span className="grid h-11 w-11 place-items-center rounded-full border border-line-strong text-bone transition-all duration-300 group-hover:border-acid group-hover:bg-acid group-hover:text-void">
@@ -153,7 +153,7 @@ export function Portfolio() {
           })}
         </div>
 
-        <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-ash">
+        <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-ash">
           Actualizado · {siteYear}
         </p>
       </div>

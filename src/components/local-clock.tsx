@@ -23,7 +23,7 @@ export function LocalClock() {
 
   return (
     <span
-      className="font-mono text-[11px] tracking-[0.16em] text-bone"
+      className="font-mono text-xs tracking-[0.16em] text-bone"
       suppressHydrationWarning
     >
       {time} <span className="text-ash">ART</span>

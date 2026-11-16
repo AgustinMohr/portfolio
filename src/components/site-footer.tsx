@@ -15,7 +15,7 @@ export function SiteFooter() {
               aria-label="Volver al inicio"
             >
               <span className="relative grid h-10 w-10 place-items-center border border-line-strong transition-colors group-hover:border-acid">
-                <span className="font-mono text-[10px] tracking-[0.08em] text-bone">
+                <span className="font-mono text-xs tracking-[0.08em] text-bone">
                   {profile.initials}
                 </span>
                 <span className="absolute -right-[3px] -top-[3px] h-[5px] w-[5px] bg-acid" />
@@ -94,10 +94,10 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ash">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-ash">
             © {siteYear} {profile.name}
           </p>
-          <div className="flex items-center gap-5 font-mono text-[10px] uppercase tracking-[0.18em] text-ash">
+          <div className="flex items-center gap-5 font-mono text-xs uppercase tracking-[0.18em] text-ash">
             <Link href="/privacidad" className="transition-colors hover:text-acid">
               Privacidad
             </Link>

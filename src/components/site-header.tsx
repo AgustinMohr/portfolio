@@ -97,12 +97,12 @@ export function SiteHeader() {
             onClick={() => setActive("inicio")}
           >
             <span className="relative grid h-9 w-9 place-items-center border border-line-strong transition-colors duration-300 group-hover:border-acid">
-              <span className="font-mono text-[10px] tracking-[0.08em] text-bone">
+              <span className="font-mono text-xs tracking-[0.08em] text-bone">
                 {profile.initials}
               </span>
               <span className="absolute -right-[3px] -top-[3px] h-[5px] w-[5px] bg-acid" />
             </span>
-            <span className="hidden text-[13px] font-medium tracking-tight text-bone sm:block">
+            <span className="hidden whitespace-nowrap text-[13px] font-medium tracking-tight text-bone sm:block">
               {profile.shortName} <span className="text-ash">/ Sistemas</span>
             </span>
           </a>
@@ -116,15 +116,15 @@ export function SiteHeader() {
                   href={`#${item.id}`}
                   onClick={() => setActive(item.id)}
                   aria-current={isActive ? "location" : undefined}
-                  className={`group relative flex items-center gap-2 px-3 py-2 text-[10px] uppercase tracking-[0.18em] transition-colors duration-300 ${
+                  className={`group relative flex items-center gap-2 whitespace-nowrap px-2 py-2 text-xs uppercase tracking-[0.1em] xl:px-3 xl:tracking-[0.18em] transition-colors duration-300 ${
                     isActive ? "text-bone" : "text-ash hover:text-bone"
                   }`}
                 >
                   <span
-                    className={`font-mono text-[9px] transition-colors duration-300 ${
+                    className={`font-mono text-xs transition-colors duration-300 ${
                       isActive
                         ? "text-acid"
-                        : "text-ash/60 group-hover:text-acid"
+                        : "text-ash group-hover:text-acid"
                     }`}
                   >
                     0{index + 1}
@@ -143,7 +143,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-2">
             <a
               href="#contacto"
-              className="btn btn-ghost hidden px-4 py-2.5 text-[10px] uppercase tracking-[0.16em] lg:inline-flex"
+              className="btn btn-ghost hidden px-4 py-2.5 text-xs uppercase tracking-[0.16em] lg:inline-flex"
             >
               Hablemos
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -238,7 +238,7 @@ export function SiteHeader() {
                   LinkedIn
                 </a>
               </div>
-              <p className="flex flex-col gap-1.5 pt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ash">
+              <p className="flex flex-col gap-1.5 pt-2 font-mono text-xs uppercase tracking-[0.2em] text-ash">
                 <span>{profile.location}</span>
                 <span>{profile.coordinates}</span>
               </p>
