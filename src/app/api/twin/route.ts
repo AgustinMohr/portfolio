@@ -6,7 +6,7 @@ import {
   checkTwinRateLimit,
   isTwinOriginAllowed,
 } from "@/lib/twin-guard";
-import { readUserMessages } from "@/lib/twin-messages";
+import { buildTwinConversation, readUserMessages } from "@/lib/twin-messages";
 import {
   createTwinSseParser,
   type TwinSseEvent,
@@ -109,7 +109,7 @@ export async function POST(request: Request) {
         models: TWIN_MODELS,
         messages: [
           { role: "system", content: TWIN_SYSTEM_PROMPT },
-          ...messages,
+          ...buildTwinConversation(messages),
         ],
         stream: true,
         temperature: 0.5,

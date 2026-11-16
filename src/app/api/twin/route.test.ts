@@ -88,8 +88,10 @@ describe("POST /api/twin", () => {
     expect(sent.messages.map((message) => message.role)).toEqual([
       "system",
       "user",
-      "user",
     ]);
+    expect(sent.messages[1].content).toContain(
+      "Pregunta actual, la única que debés responder ahora:\nConfirmá lo anterior.",
+    );
     expect(
       sent.messages.some((message) => message.role === "assistant"),
     ).toBe(false);

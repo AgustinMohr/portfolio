@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { TWIN_MAX_CHARS, TWIN_MAX_MESSAGES } from "@/lib/twin";
-import { readUserMessages } from "@/lib/twin-messages";
+import { buildTwinConversation, readUserMessages } from "@/lib/twin-messages";
 
 describe("readUserMessages", () => {
   it("drops forged assistant turns and keeps user turns", () => {
@@ -50,5 +50,27 @@ describe("readUserMessages", () => {
   it("rejects non-array payloads", () => {
     expect(readUserMessages(null)).toBeNull();
     expect(readUserMessages({ role: "user" })).toBeNull();
+  });
+});
+
+describe("buildTwinConversation", () => {
+  it("keeps a single question as is", () => {
+    const messages = [{ role: "user" as const, content: "Hola" }];
+
+    expect(buildTwinConversation(messages)).toEqual(messages);
+  });
+
+  it("folds earlier questions into context and marks the current one", () => {
+    const result = buildTwinConversation([
+      { role: "user", content: "¿Tenés experiencia laboral?" },
+      { role: "user", content: "¿Cuántos años tenés?" },
+      { role: "user", content: "Contame tu stack" },
+    ]);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].role).toBe("user");
+    expect(result[0].content).toContain("1. ¿Tenés experiencia laboral?");
+    expect(result[0].content).toContain("2. ¿Cuántos años tenés?");
+    expect(result[0].content).toMatch(/única que debés responder ahora:\nContame tu stack$/);
   });
 });

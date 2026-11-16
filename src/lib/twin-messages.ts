@@ -27,3 +27,20 @@ export function readUserMessages(value: unknown): TwinMessage[] | null {
 
   return messages.slice(-TWIN_MAX_MESSAGES);
 }
+
+export function buildTwinConversation(messages: TwinMessage[]): TwinMessage[] {
+  const current = messages[messages.length - 1];
+  if (!current || messages.length === 1) return messages;
+
+  const previous = messages
+    .slice(0, -1)
+    .map((message, index) => `${index + 1}. ${message.content}`)
+    .join("\n");
+
+  return [
+    {
+      role: "user",
+      content: `Preguntas anteriores del visitante, solo como contexto (ya fueron respondidas, no las respondas de nuevo):\n${previous}\n\nPregunta actual, la única que debés responder ahora:\n${current.content}`,
+    },
+  ];
+}
