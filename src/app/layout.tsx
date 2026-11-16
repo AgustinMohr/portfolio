@@ -7,6 +7,7 @@ import {
 import Script from "next/script";
 import { TwinChat } from "@/components/twin-chat";
 import { profile } from "@/lib/data";
+import { seoDescription, seoTitle } from "@/lib/seo";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -19,7 +20,7 @@ const spaceGrotesk = Space_Grotesk({
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  style: ["normal", "italic"],
+  style: "italic",
   variable: "--font-instrument-serif",
   display: "swap",
 });
@@ -33,21 +34,10 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${profile.name} — ${profile.headline}`,
+    default: seoTitle,
     template: `%s · ${profile.name}`,
   },
-  description: `Portfolio de ${profile.name}. ${profile.description}`,
-  keywords: [
-    "Agustín Mohr Tschopp",
-    "Ingeniería en Sistemas",
-    "UTN FRSF",
-    "Spring Boot",
-    "Java",
-    "Backend",
-    "Desarrollo asistido por IA",
-    "Santa Fe",
-    "Argentina",
-  ],
+  description: seoDescription,
   authors: [{ name: profile.name }],
   creator: profile.name,
   applicationName: profile.name,
@@ -59,13 +49,13 @@ export const metadata: Metadata = {
     locale: "es_AR",
     url: "/",
     siteName: profile.name,
-    title: `${profile.name} — ${profile.headline}`,
-    description: profile.description,
+    title: seoTitle,
+    description: seoDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profile.name} — ${profile.headline}`,
-    description: profile.description,
+    title: seoTitle,
+    description: seoDescription,
   },
   robots: {
     index: true,

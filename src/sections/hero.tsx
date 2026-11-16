@@ -203,4 +203,25 @@ export function Hero() {
       </div>
     </section>
   );
-}
+}            <h1>
+              <span
+                className="rise flex flex-wrap items-center gap-x-4 gap-y-2"
+                style={{ animationDelay: "80ms" }}
+              >
+                <span className="label text-acid">{profile.name}</span>
+                <span aria-hidden="true" className="h-px w-8 bg-line-strong" />
+                <span className="label text-ash">
+                  {profile.city} · Argentina
+                </span>
+              </span>
+              <span
+                className="hero-title rise mt-8 block text-bone"
+                style={{ animationDelay: "160ms" }}
+              >
+                Sistemas
+                <br />
+                con <span className="serif-accent text-acid">intención.</span>
+              </span>
+            </h1>
+
+

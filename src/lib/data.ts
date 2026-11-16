@@ -13,6 +13,7 @@ export const profile = {
   coordinates: "31.6107° S / 60.6973° O",
   email: "agustinmohr@hotmail.com",
   linkedin: "https://www.linkedin.com/in/agustin-mohr-tschopp-573806423",
+  github: "https://github.com/AgustinMohr",
   availability: "Disponible para pasantías y roles junior",
   availabilityLabel: "Disponible para pasantías",
   description:

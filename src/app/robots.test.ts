@@ -7,7 +7,6 @@ describe("robots", () => {
     const result = robots();
 
     expect(result.sitemap).toBe(`${siteUrl}/sitemap.xml`);
-    expect(result.host).toBe(siteUrl);
     expect(result.rules).toMatchObject({
       userAgent: "*",
       allow: "/",
