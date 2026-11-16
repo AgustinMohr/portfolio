@@ -14,7 +14,7 @@ export const profile = {
   email: "agustinmohr@hotmail.com",
   linkedin: "https://www.linkedin.com/in/agustin-mohr-tschopp-573806423",
   availability: "Disponible para pasantías y roles junior",
-  availabilityLabel: "Open to work",
+  availabilityLabel: "Disponible para pasantías",
   description:
     "Estudiante avanzado de Ingeniería en Sistemas de Información en la UTN FRSF. Foco en backend, arquitectura y desarrollo de software asistido por inteligencia artificial.",
 } as const;

@@ -136,10 +136,6 @@ export function Hero() {
                   <span className="label text-ash">
                     Perfil / {siteYear}
                   </span>
-                  <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-acid">
-                    <span className="pulse-dot h-1 w-1 rounded-full bg-acid" />
-                    Disponible
-                  </span>
                 </div>
 
                 <div className="relative aspect-[5/4] overflow-hidden border-b border-line">
