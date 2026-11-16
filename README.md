@@ -76,6 +76,11 @@ Configurá estas variables en *Project Settings → Environment Variables*:
 ## Limitaciones conocidas
 
 - **Cupo global del chat:** toda consulta al gemelo cuenta contra el límite global (120 por 10 minutos por defecto), aunque después falle la validación. Un abuso sostenido puede agotar el cupo para todos. Con Upstash el contador es compartido entre instancias; si esto ocurre en la práctica, la mitigación es sumar un CAPTCHA (por ejemplo Cloudflare Turnstile) o subir `TWIN_GLOBAL_RATE_LIMIT`.
+- **El origen no es una barrera anti-bots:** la comprobación de `Origin` frena el uso desde otros sitios web, pero un script que no es un navegador puede fabricar esas cabeceras. La defensa real son el límite por cliente, el límite global y el tope de gasto de la clave. Si aparece abuso, la mitigación es Cloudflare Turnstile o Vercel BotID.
+- **Fallback `openrouter/free`:** si el modelo principal no responde, OpenRouter elige cualquier modelo gratuito disponible, de calidad y comportamiento variables. Se mantiene para no dejar el chat sin servicio; el prompt limita lo que puede afirmar y el disclaimer avisa que puede equivocarse.
+- **Inyección de prompt:** el prompt solo contiene datos ya públicos del perfil y el servidor acepta únicamente turnos de usuario, así que el impacto es reputacional, no de seguridad. Está mitigado con reglas defensivas, no eliminado.
+- **Costo del chat:** el chat usa solo modelos gratuitos y un test falla si se agrega uno de pago. Aun así, la clave de OpenRouter debe ser dedicada y tener límite de crédito.
+- **Datos públicos:** el email, el CV (`public/CV-AGUSTIN-MOHR.pdf`) y las coordenadas aproximadas son visibles para cualquiera y pueden ser rastreados por bots de spam. Es una decisión consciente: son mi canal de contacto.
 - **Año del pie de página:** el sitio es estático y el año (`siteYear`) se calcula al construir. Cambia recién en el siguiente deploy después del 1 de enero.
 - **Modelos gratuitos:** el gemelo depende de la disponibilidad y los límites de los modelos gratuitos de OpenRouter, y puede tardar o fallar en horas pico. En ese caso el chat ofrece escribirme por email.
 
