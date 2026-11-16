@@ -81,7 +81,13 @@ Configurá estas variables en *Project Settings → Environment Variables*:
 
 ## Calidad
 
-GitHub Actions ejecuta en cada push y pull request: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build` y `npm run test:e2e`.
+GitHub Actions ejecuta en cada push y pull request tres jobs en paralelo:
+
+- **Calidad:** `npm run lint`, `npm run typecheck` y `npm run coverage` (Vitest con umbrales sobre `src/lib`).
+- **Auditoría:** `npm audit` de dependencias de producción (bloquea en `main`, avisa en pull requests).
+- **E2E:** build, escaneo del bundle y de las páginas prerenderizadas (`scripts/scan-bundle.mjs`, busca claves y el prompt del sistema) y `npm run test:e2e` en Chromium y WebKit, con accesibilidad (axe), responsive, navegación, contenido, chat y cabeceras de seguridad. Si falla, sube trazas y el reporte HTML.
+
+Las acciones están fijadas por SHA y Dependabot las mantiene al día. Se recomienda activar protección de rama en `main` exigiendo estos jobs.
 
 ## Privacidad
 
