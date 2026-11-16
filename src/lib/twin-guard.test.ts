@@ -79,6 +79,29 @@ describe("checkTwinRateLimit", () => {
     vi.unstubAllGlobals();
   });
 
+  it("never sends the raw client address to Redis", async () => {
+    vi.stubEnv("TWIN_TRUST_PROXY", "true");
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://redis.example");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "token");
+    const fetchMock = vi.fn().mockResolvedValue(
+      Response.json([
+        { result: 1 },
+        { result: 1 },
+        { result: 1 },
+        { result: 1 },
+      ]),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const { checkTwinRateLimit } = await loadGuard();
+
+    await checkTwinRateLimit(request({ "x-forwarded-for": "203.0.113.77" }));
+
+    const init = fetchMock.mock.calls[0]?.[1] as RequestInit;
+    expect(String(init.body)).not.toContain("203.0.113.77");
+    expect(String(init.body)).toContain("portfolio:twin:rate:client:");
+    vi.unstubAllGlobals();
+  });
+
   it("does not warn outside production", async () => {
     vi.stubEnv("TWIN_TRUST_PROXY", "");
     const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);

@@ -73,6 +73,18 @@ function warnUntrustedProxy() {
   );
 }
 
+async function hashClientKey(value: string) {
+  const salt = process.env.TWIN_RATE_SALT ?? "";
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(`${salt}:${value}`),
+  );
+
+  return Array.from(new Uint8Array(digest).slice(0, 16), (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
+}
+
 function getRedisConfig() {
   const url = (
     process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL
@@ -321,7 +333,7 @@ export async function checkTwinRateLimit(
   const windowMs = getWindowMs();
   const perClientLimit = getPerClientLimit();
   const globalLimit = getGlobalLimit();
-  const clientKey = readClientKey(request);
+  const clientKey = await hashClientKey(readClientKey(request));
 
   const durable = await redisDecision(
     clientKey,
