@@ -55,3 +55,44 @@ test("interactive targets are at least 24px", async ({ page }) => {
   );
   expect(small).toEqual([]);
 });
+
+for (const width of [320, 390]) {
+  test(`the chat launcher covers nothing at the end of the page at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 700 });
+    await page.goto("/");
+    await waitForHydration(page);
+    await page.evaluate(() =>
+      document.documentElement.classList.add("reveal-fallback"),
+    );
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+
+    const launcher = page.getByRole("button", { name: /Gemelo digital/ });
+    await expect(launcher).toBeVisible();
+
+    const covered = await page.evaluate(() => {
+      const button = Array.from(
+        document.querySelectorAll<HTMLElement>("button"),
+      ).find((el) => /Gemelo digital/.test(el.textContent ?? ""));
+      if (!button) return ["launcher not found"];
+      const a = button.getBoundingClientRect();
+
+      return Array.from(
+        document.querySelectorAll<HTMLElement>("a[href], button, input, textarea"),
+      )
+        .filter((el) => el !== button && !button.contains(el))
+        .filter((el) => {
+          const b = el.getBoundingClientRect();
+          return (
+            b.width > 0 &&
+            b.height > 0 &&
+            a.left < b.right &&
+            a.right > b.left &&
+            a.top < b.bottom &&
+            a.bottom > b.top
+          );
+        })
+        .map((el) => el.outerHTML.slice(0, 80));
+    });
+    expect(covered).toEqual([]);
+  });
+}
