@@ -14,7 +14,9 @@ import {
 import { TWIN_MODEL, TWIN_MODELS, TWIN_SYSTEM_PROMPT } from "@/lib/twin-server";
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const UPSTREAM_TIMEOUT_MS = 90_000;
+export const maxDuration = 60;
+
+const UPSTREAM_TIMEOUT_MS = 55_000;
 
 function errorResponse(
   message: string,
