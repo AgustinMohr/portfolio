@@ -1,0 +1,21 @@
+export function BrandIcon({ size }: { size: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64">
+      <rect width="64" height="64" rx="14" fill="#08090A" />
+      <rect
+        x="0.5"
+        y="0.5"
+        width="63"
+        height="63"
+        rx="13.5"
+        fill="none"
+        stroke="#2A2D30"
+      />
+      <path
+        d="M17 47 31.2 17h2.6L48 47h-7.4l-2.5-5.8H26.9L24.4 47H17Zm12.1-11.8h6.4l-3.2-7.7-3.2 7.7Z"
+        fill="#D8FF3E"
+      />
+      <circle cx="50" cy="15" r="3" fill="#F3F1EA" />
+    </svg>
+  );
+}
