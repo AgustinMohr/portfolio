@@ -41,6 +41,7 @@ const sections = [
     title: "Contacto, cookies y analítica",
     body: [
       "El formulario de contacto abre tu cliente de correo con un mensaje armado: no pasa por este sitio ni se guarda aquí.",
+      "El CV se descarga como un archivo estático: este sitio no registra quién lo descarga, aunque el hosting puede registrar la solicitud como cualquier otra visita.",
       "El sitio no usa cookies de seguimiento ni herramientas de analítica.",
     ],
   },
