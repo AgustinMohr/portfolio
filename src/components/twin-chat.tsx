@@ -20,7 +20,6 @@ const TwinChatPanel = dynamic(
 export function TwinChat() {
   const [open, setOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [contactVisible, setContactVisible] = useState(false);
   const launcherRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
 
@@ -37,19 +36,6 @@ export function TwinChat() {
 
     window.addEventListener(TWIN_OPEN_EVENT, handleOpen);
     return () => window.removeEventListener(TWIN_OPEN_EVENT, handleOpen);
-  }, []);
-
-  useEffect(() => {
-    const contact = document.getElementById("contacto");
-    if (!contact || !("IntersectionObserver" in window)) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setContactVisible(entry.isIntersecting),
-      { threshold: 0 },
-    );
-
-    observer.observe(contact);
-    return () => observer.disconnect();
   }, []);
 
   function openChat() {
@@ -78,7 +64,7 @@ export function TwinChat() {
 
   return (
     <>
-      {(!open || !loaded) && !contactVisible ? (
+      {!open || !loaded ? (
         <button
           ref={launcherRef}
           type="button"
@@ -88,7 +74,7 @@ export function TwinChat() {
           aria-haspopup="dialog"
           aria-controls="twin-chat-panel"
           aria-expanded={open}
-          className="group fixed bottom-4 right-4 z-30 flex items-center gap-3 rounded-full border border-line-strong bg-void/90 p-2 text-left shadow-2xl backdrop-blur-md transition-colors duration-300 hover:border-acid sm:bottom-6 sm:right-6 sm:py-2 sm:pl-2 sm:pr-4"
+          className="group fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-30 flex items-center gap-3 rounded-full border border-line-strong bg-void/90 p-2 text-left shadow-2xl backdrop-blur-md transition-colors duration-300 hover:border-acid sm:bottom-6 sm:right-6 sm:py-2 sm:pl-2 sm:pr-4"
         >
           <span className="relative grid h-9 w-9 place-items-center rounded-full border border-acid/40 bg-panel transition-colors duration-300 group-hover:border-acid">
             <SparklesIcon className="h-4 w-4 text-acid" />
