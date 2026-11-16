@@ -12,7 +12,6 @@ export function SiteFooter() {
             <a
               href="#inicio"
               className="group inline-flex items-center gap-3"
-              aria-label="Volver al inicio"
             >
               <span className="relative grid h-10 w-10 place-items-center border border-line-strong transition-colors group-hover:border-acid">
                 <span className="font-mono text-xs tracking-[0.08em] text-bone">
@@ -110,9 +109,7 @@ export function SiteFooter() {
         aria-hidden="true"
         className="pointer-events-none select-none overflow-hidden"
       >
-        <p className="translate-y-[26%] whitespace-nowrap text-center text-[21vw] font-medium leading-none tracking-[-0.06em] text-bone/5">
-          MOHR
-        </p>
+        <p className="translate-y-[26%] whitespace-nowrap text-center text-[21vw] font-medium leading-none tracking-[-0.06em] text-bone/5 before:content-['MOHR']" />
       </div>
     </footer>
   );

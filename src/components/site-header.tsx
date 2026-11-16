@@ -93,7 +93,6 @@ export function SiteHeader() {
           <a
             href="#inicio"
             className="group flex items-center gap-3"
-            aria-label="Volver al inicio"
             onClick={() => setActive("inicio")}
           >
             <span className="relative grid h-9 w-9 place-items-center border border-line-strong transition-colors duration-300 group-hover:border-acid">
@@ -104,6 +103,9 @@ export function SiteHeader() {
             </span>
             <span className="hidden whitespace-nowrap text-[13px] font-medium tracking-tight text-bone sm:block">
               {profile.shortName} <span className="text-ash">/ Sistemas</span>
+            </span>
+            <span className="sr-only sm:hidden">
+              {profile.shortName}, volver al inicio
             </span>
           </a>
 

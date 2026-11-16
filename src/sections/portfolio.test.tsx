@@ -8,7 +8,7 @@ describe("Portfolio", () => {
     render(<Portfolio />);
 
     const links = screen.getAllByRole("link", {
-      name: /Ver repositorio en GitHub/i,
+      name: /Ver repositorio/i,
     });
 
     expect(links.length).toBeGreaterThan(0);

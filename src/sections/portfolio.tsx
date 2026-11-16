@@ -69,7 +69,6 @@ export function Portfolio() {
                 href={project.href}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={`${project.title} — ${project.status}. Ver repositorio en GitHub.`}
                 className="group grid gap-5 border-b border-line py-8 transition-colors duration-300 hover:bg-panel/40 md:grid-cols-12 md:items-center md:gap-6 md:py-10"
               >
                 <div className="flex items-center justify-between md:col-span-1 md:block">

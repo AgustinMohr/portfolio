@@ -88,12 +88,14 @@ export function TwinChat() {
           aria-haspopup="dialog"
           aria-controls="twin-chat-panel"
           aria-expanded={open}
-          aria-label="Gemelo digital: preguntale a mi IA"
           className="group fixed bottom-4 right-4 z-30 flex items-center gap-3 rounded-full border border-line-strong bg-void/90 p-2 text-left shadow-2xl backdrop-blur-md transition-colors duration-300 hover:border-acid sm:bottom-6 sm:right-6 sm:py-2 sm:pl-2 sm:pr-4"
         >
           <span className="relative grid h-9 w-9 place-items-center rounded-full border border-acid/40 bg-panel transition-colors duration-300 group-hover:border-acid">
             <SparklesIcon className="h-4 w-4 text-acid" />
             <span className="pulse-dot absolute right-0 top-0 h-1.5 w-1.5 rounded-full bg-acid" />
+          </span>
+          <span className="sr-only sm:hidden">
+            Gemelo digital. Preguntale a mi IA
           </span>
           <span className="hidden sm:block">
             <span className="block text-[12px] font-medium tracking-tight text-bone">
