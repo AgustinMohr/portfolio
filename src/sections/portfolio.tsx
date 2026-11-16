@@ -83,7 +83,7 @@ export function Portfolio() {
                 </div>
 
                 <div className="md:col-span-3">
-                  <h3 className="text-2xl tracking-tight text-bone transition-colors duration-300 group-hover:text-acid md:text-3xl">
+                  <h3 className="text-3xl tracking-tight text-bone transition-colors duration-300 group-hover:text-acid md:text-4xl">
                     {project.title}
                   </h3>
                   <p className="mt-1.5 font-mono text-xs uppercase tracking-[0.16em] text-ash">
@@ -92,7 +92,7 @@ export function Portfolio() {
                 </div>
 
                 <div className="md:col-span-4">
-                  <p className="text-sm leading-relaxed text-ash">
+                  <p className="text-sm leading-relaxed text-ash md:text-base">
                     {project.body}
                   </p>
                   <ul className="mt-4 flex flex-wrap gap-2">
@@ -112,7 +112,7 @@ export function Portfolio() {
                     <span className="h-1 w-1 rounded-full bg-acid" />
                     {project.status}
                   </span>
-                  <span className="whitespace-nowrap font-mono text-xs uppercase tracking-[0.12em] text-ash transition-colors group-hover:text-acid">
+                  <span className="whitespace-nowrap font-mono text-xs uppercase tracking-[0.12em] text-bone transition-colors group-hover:text-acid">
                     Ver repositorio
                   </span>
                   <span className="grid h-11 w-11 place-items-center rounded-full border border-line-strong text-bone transition-all duration-300 group-hover:border-acid group-hover:bg-acid group-hover:text-void">
