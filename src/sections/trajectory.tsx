@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
-import { profile, stackGroups, timeline } from "@/lib/data";
+import { stackGroups, timeline } from "@/lib/data";
 
 export function Trajectory() {
   return (
@@ -29,20 +29,7 @@ export function Trajectory() {
             </Reveal>
 
             <Reveal delay={200}>
-              <div className="mt-10 space-y-4">
-                <div className="border border-line bg-panel/40 p-5">
-                  <p className="label text-ash">Formación</p>
-                  <p className="mt-3 text-lg tracking-tight text-bone">
-                    Ingeniería en Sistemas
-                  </p>
-                  <p className="mt-1 text-sm text-ash">
-                    UTN · Facultad Regional Santa Fe
-                  </p>
-                  <p className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-acid">
-                    {profile.startedAt} — En curso · {profile.year}
-                  </p>
-                </div>
-
+              <div className="mt-10">
                 <div className="border border-line bg-panel/40 p-5">
                   <p className="label text-ash">Idiomas</p>
                   <div className="mt-3 flex items-center justify-between gap-4 text-sm">
