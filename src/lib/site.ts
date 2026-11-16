@@ -17,6 +17,12 @@ function resolveSiteUrl() {
     return normalizeSiteUrl(configured);
   }
 
+  const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+
+  if (vercelHost) {
+    return normalizeSiteUrl(`https://${vercelHost}`);
+  }
+
   if (process.env.NODE_ENV === "production") {
     throw new Error("NEXT_PUBLIC_SITE_URL is required for production builds.");
   }

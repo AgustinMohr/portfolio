@@ -65,7 +65,7 @@ Configurá estas variables en *Project Settings → Environment Variables*:
 
 | Variable | Obligatoria | Uso |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Sí | Origen público del sitio (por ejemplo `https://agustinmohr.com`). El build de producción falla sin ella. |
+| `NEXT_PUBLIC_SITE_URL` | Sí con dominio propio | Origen público del sitio (por ejemplo `https://agustinmohr.com`). Si falta, se usa el dominio de producción de Vercel (`VERCEL_PROJECT_PRODUCTION_URL`); si tampoco existe, el build falla. |
 | `OPENROUTER_API_KEY` | Sí, para el chat | Clave de OpenRouter. Solo servidor; nunca con prefijo `NEXT_PUBLIC_`. |
 | `TWIN_TRUST_PROXY` | Recomendada | `true` en Vercel. Sin ella todos los visitantes comparten un único cupo de consultas. |
 | `TWIN_TRUSTED_PROXY_HOPS` | No | Cantidad de proxies de confianza (por defecto `1`). |
