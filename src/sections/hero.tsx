@@ -179,8 +179,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-14 flex items-center justify-between border-t border-line pt-5 md:mt-20">
-          <span className="label text-ash">{profile.coordinates}</span>
+        <div className="mt-14 flex items-center justify-end border-t border-line pt-5 md:mt-20">
           <a
             href="#sobre-mi"
             className="group inline-flex items-center gap-3 text-ash transition-colors hover:text-acid"
