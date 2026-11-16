@@ -1,6 +1,12 @@
 export const profile = {
   name: "Agustín Mohr Tschopp",
+  firstName: "Agustín",
+  shortName: "Agustín Mohr",
   initials: "AMT",
+  city: "Santa Fe",
+  startedAt: 2020,
+  year: "4.º año",
+  yearWritten: "cuarto año",
   headline: "Sistemas con intención",
   role: "Ingeniería en Sistemas · Software & IA",
   location: "Santa Fe, Argentina",
@@ -49,8 +55,8 @@ export const profileFacts = {
     degree: "Ingeniería en Sistemas de Información",
     university:
       "Universidad Tecnológica Nacional, Facultad Regional Santa Fe",
-    year: "cuarto año",
-    startedAt: 2020,
+    year: profile.yearWritten,
+    startedAt: profile.startedAt,
     graduated: false,
   },
   experience:
@@ -114,12 +120,12 @@ export const principles = [
 export const timeline = [
   {
     index: "01",
-    period: "2020 — Hoy",
+    period: `${profile.startedAt} — Hoy`,
     title: "Formación de grado",
     subtitle: "Ingeniería en Sistemas de Información",
     org: "UTN · Facultad Regional Santa Fe",
-    body: "Cuarto año en curso. Una base amplia en algoritmos, arquitectura, bases de datos y sistemas operativos que ordena todo lo que construyo después.",
-    tags: ["UTN FRSF", "4.º año", "Santa Fe"],
+    body: `Estoy cursando el ${profile.yearWritten}. Una base amplia en algoritmos, arquitectura, bases de datos y sistemas operativos que ordena todo lo que construyo después.`,
+    tags: ["UTN FRSF", profile.year, profile.city],
   },
   {
     index: "02",
@@ -146,7 +152,7 @@ export const timeline = [
     subtitle: "Pasantía · Trainee · Junior",
     org: "Abierto a equipos con ambición",
     body: "Busco un lugar donde aportar valor real desde el primer día, aprender de gente con oficio y crecer con una base técnica sólida.",
-    tags: ["Open to work", "Inglés avanzado"],
+    tags: [profile.availabilityLabel, "Inglés avanzado"],
   },
 ] as const;
 

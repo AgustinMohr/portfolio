@@ -52,7 +52,7 @@ export function Hero() {
             >
               <span className="label text-acid">{profile.name}</span>
               <span className="h-px w-8 bg-line-strong" />
-              <span className="label text-ash">Santa Fe · Argentina</span>
+              <span className="label text-ash">{profile.city} · Argentina</span>
             </div>
 
             <h1
@@ -96,12 +96,12 @@ export function Hero() {
             >
               <span className="inline-flex items-center gap-2">
                 <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-acid" />
-                <span className="label text-bone">Open to work</span>
+                <span className="label text-bone">{profile.availabilityLabel}</span>
               </span>
               <span aria-hidden="true" className="h-px w-5 bg-line-strong" />
               <span className="label text-ash">Inglés avanzado</span>
               <span aria-hidden="true" className="h-px w-5 bg-line-strong" />
-              <span className="label text-ash">4.º año · UTN FRSF</span>
+              <span className="label text-ash">{profile.year} · UTN FRSF</span>
             </div>
           </div>
 
@@ -154,7 +154,7 @@ export function Hero() {
                     SYS / 01
                   </span>
                   <span className="label absolute bottom-4 left-4 text-ash">
-                    2020 — ∞
+                    {profile.startedAt} — ∞
                   </span>
                   <span className="label absolute bottom-4 right-4 text-acid">
                     FRSF
@@ -162,12 +162,12 @@ export function Hero() {
                 </div>
 
                 <dl>
-                  <ProfileRow label="Base" value="Santa Fe, Argentina" />
+                  <ProfileRow label="Base" value={profile.location} />
                   <ProfileRow
                     label="Foco"
                     value="Backend · Arquitectura · IA"
                   />
-                  <ProfileRow label="Formación" value="UTN FRSF — 4.º año" />
+                  <ProfileRow label="Formación" value={`UTN FRSF — ${profile.year}`} />
                   <ProfileRow
                     label="Idiomas"
                     value="Español · Inglés avanzado"

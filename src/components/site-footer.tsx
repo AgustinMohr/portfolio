@@ -77,7 +77,7 @@ export function SiteFooter() {
 
             <div className="flex items-center justify-between border-t border-line pt-4">
               <span className="label flex items-center gap-2 text-ash">
-                Santa Fe
+                {profile.city}
                 <span className="h-1 w-1 rounded-full bg-line-strong" />
                 <LocalClock />
               </span>

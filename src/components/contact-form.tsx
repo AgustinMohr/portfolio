@@ -18,7 +18,7 @@ export function ContactForm() {
     if (!name || !email || !message) return;
 
     const subject = `Contacto desde el portfolio — ${name}`;
-    const body = `Hola Agustín,\n\n${message}\n\n—\n${name}\n${email}`;
+    const body = `Hola ${profile.firstName},\n\n${message}\n\n—\n${name}\n${email}`;
 
     setStatus("Abriendo tu cliente de correo con el mensaje listo.");
     window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(

@@ -36,8 +36,7 @@ export const metadata: Metadata = {
     default: `${profile.name} — ${profile.headline}`,
     template: `%s · ${profile.name}`,
   },
-  description:
-    "Portfolio de Agustín Mohr Tschopp, estudiante avanzado de Ingeniería en Sistemas de Información en la UTN FRSF. Backend, arquitectura y desarrollo de software asistido por IA.",
+  description: `Portfolio de ${profile.name}. ${profile.description}`,
   keywords: [
     "Agustín Mohr Tschopp",
     "Ingeniería en Sistemas",
@@ -61,14 +60,12 @@ export const metadata: Metadata = {
     url: "/",
     siteName: profile.name,
     title: `${profile.name} — ${profile.headline}`,
-    description:
-      "Backend, arquitectura y desarrollo de software asistido por IA. Estudiante avanzado de Ingeniería en Sistemas en la UTN FRSF.",
+    description: profile.description,
   },
   twitter: {
     card: "summary_large_image",
     title: `${profile.name} — ${profile.headline}`,
-    description:
-      "Backend, arquitectura y desarrollo de software asistido por IA. Estudiante avanzado de Ingeniería en Sistemas en la UTN FRSF.",
+    description: profile.description,
   },
   robots: {
     index: true,

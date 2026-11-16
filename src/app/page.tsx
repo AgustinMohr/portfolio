@@ -2,7 +2,7 @@ import { CursorGlow } from "@/components/cursor-glow";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { profile } from "@/lib/data";
+import { profile, profileFacts } from "@/lib/data";
 import { serializeJsonLd } from "@/lib/json-ld";
 import { siteUrl } from "@/lib/site";
 import { About } from "@/sections/about";
@@ -15,19 +15,19 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: profile.name,
-  jobTitle: "Estudiante de Ingeniería en Sistemas de Información",
+  jobTitle: `Estudiante de ${profileFacts.education.degree}`,
   description: profile.description,
   email: `mailto:${profile.email}`,
   url: siteUrl,
   sameAs: [profile.linkedin],
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Santa Fe",
+    addressLocality: profile.city,
     addressCountry: "AR",
   },
   alumniOf: {
     "@type": "CollegeOrUniversity",
-    name: "Universidad Tecnológica Nacional — Facultad Regional Santa Fe",
+    name: profileFacts.education.university,
   },
   knowsLanguage: ["es", "en"],
   knowsAbout: [

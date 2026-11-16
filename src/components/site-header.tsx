@@ -103,7 +103,7 @@ export function SiteHeader() {
               <span className="absolute -right-[3px] -top-[3px] h-[5px] w-[5px] bg-acid" />
             </span>
             <span className="hidden text-[13px] font-medium tracking-tight text-bone sm:block">
-              Agustín Mohr <span className="text-ash">/ Sistemas</span>
+              {profile.shortName} <span className="text-ash">/ Sistemas</span>
             </span>
           </a>
 

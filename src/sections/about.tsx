@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
-import { principles } from "@/lib/data";
+import { principles, profile } from "@/lib/data";
 
 export function About() {
   return (
@@ -45,8 +45,8 @@ export function About() {
           <div className="lg:col-span-6 lg:col-start-7">
             <Reveal>
               <p className="dropcap text-lg leading-relaxed text-bone md:text-xl md:leading-9">
-                Soy Agustín, vivo en Santa Fe y curso cuarto año de Ingeniería
-                en Sistemas de Información en la UTN FRSF. La curiosidad por
+                Soy {profile.firstName}, vivo en {profile.city} y curso{" "}
+                {profile.yearWritten} de Ingeniería en Sistemas de Información en la UTN FRSF. La curiosidad por
                 entender cómo funcionan las cosas me trajo hasta acá, y sigue
                 siendo el motor de todo lo que aprendo.
               </p>

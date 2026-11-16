@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
-import { stackGroups, timeline } from "@/lib/data";
+import { profile, stackGroups, timeline } from "@/lib/data";
 
 export function Trajectory() {
   return (
@@ -39,7 +39,7 @@ export function Trajectory() {
                     UTN · Facultad Regional Santa Fe
                   </p>
                   <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-acid">
-                    2020 — En curso · 4.º año
+                    {profile.startedAt} — En curso · {profile.year}
                   </p>
                 </div>
 
