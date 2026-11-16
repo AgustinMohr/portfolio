@@ -9,6 +9,7 @@ import {
 } from "react";
 import { profile } from "@/lib/data";
 import { isNearBottom } from "@/lib/scroll";
+import { streamTwinReply } from "@/lib/twin-client";
 import {
   twinSuggestions,
   twinWelcome,
@@ -128,78 +129,37 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
     abortRef.current = controller;
 
     const assistantId = createMessageId();
+    const withReply = (content: string): ChatMessage[] => [
+      ...history,
+      { id: assistantId, role: "assistant", content },
+    ];
     let text = "";
 
-    setMessages([
-      ...history,
-      { id: assistantId, role: "assistant", content: "" },
-    ]);
+    setMessages(withReply(""));
 
     try {
-      const response = await fetch("/api/twin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: history
-            .filter(
-              (message) =>
-                message.id !== "welcome" && message.role === "user",
-            )
-            .map(({ role, content }) => ({ role, content })),
-        }),
-        signal: controller.signal,
-      });
+      const reply = await streamTwinReply(
+        history
+          .filter((message) => message.role === "user")
+          .map(({ content }) => ({ role: "user" as const, content })),
+        controller.signal,
+        (partial) => {
+          text = partial;
+          setMessages(withReply(partial));
+        },
+      );
 
-      if (!response.ok) {
-        const data = (await response.json().catch(() => null)) as {
-          error?: string;
-        } | null;
-        throw new Error(data?.error ?? "No pude responder en este momento.");
-      }
-
-      if (!response.body) {
-        throw new Error("No pude recibir la respuesta.");
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        text += decoder.decode(value, { stream: true });
-        setMessages([
-          ...history,
-          { id: assistantId, role: "assistant", content: text },
-        ]);
-      }
-
-      text += decoder.decode();
-
-      if (!text.trim()) {
-        throw new Error("La respuesta vino vacía. Probá de nuevo.");
-      }
-
-      setMessages([
-        ...history,
-        { id: assistantId, role: "assistant", content: text.trim() },
-      ]);
-      setAnnouncement(text.trim());
+      setMessages(withReply(reply));
+      setAnnouncement(reply);
     } catch (caught) {
+      const partial = text.trim();
       const aborted =
         caught instanceof Error && caught.name === "AbortError";
 
+      setMessages(partial ? withReply(partial) : history);
+
       if (aborted) {
-        setMessages(
-          text.trim()
-            ? [
-                ...history,
-                { id: assistantId, role: "assistant", content: text.trim() },
-              ]
-            : history,
-        );
-        setAnnouncement(text.trim() ? "Respuesta detenida." : "");
+        setAnnouncement(partial ? "Respuesta detenida." : "");
       } else {
         setAnnouncement("");
         setError(
@@ -207,21 +167,12 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
             ? caught.message
             : "No pude responder en este momento.",
         );
-        setMessages(
-          text.trim()
-            ? [
-                ...history,
-                { id: assistantId, role: "assistant", content: text.trim() },
-              ]
-            : history,
-        );
       }
     } finally {
       setIsStreaming(false);
       abortRef.current = null;
     }
   }
-
   function sendMessage(prompt?: string) {
     const content = (prompt ?? input).trim();
     if (!content || isStreaming) return;
