@@ -22,8 +22,6 @@ El sitio se publica en **Vercel**. Este repositorio es su código fuente.
 | [VigaDesk](https://github.com/AgustinMohr/vigadesk) | Plataforma B2B para corralones con gestión de clientes, pedidos, productos y obras. | Microservicios, Java, Spring Boot, SQL, NoSQL | En preparación |
 | [Clase Ya](https://github.com/AgustinMohr/clase-ya) | Plataforma que conecta estudiantes con profesores particulares. | Java, Spring Boot, React, PostgreSQL | En preparación |
 
-Los casos de estudio se publican cuando el código, las decisiones y los resultados están listos para mostrarse.
-
 ## Tecnologías del sitio
 
 | Área | Tecnología |
@@ -94,7 +92,3 @@ src/components/   header, footer, chat, utilidades de UI
 src/lib/          datos, prompt y reglas del gemelo, helpers
 e2e/              pruebas de extremo a extremo
 ```
-
-## Actualizar el contenido
-
-Editá `src/lib/data.ts` (perfil, trayectoria, stack y proyectos). Si cambiás hechos del perfil, probá luego el gemelo con preguntas de control: experiencia laboral, edad, expectativa salarial, "¿sos una persona?" y una pregunta en inglés.
