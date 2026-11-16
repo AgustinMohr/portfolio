@@ -35,6 +35,14 @@ test("open chat has no serious accessibility violations", async ({ page }) => {
   await waitForHydration(page);
   await page.getByRole("button", { name: /Gemelo digital/ }).click();
   await expect(page.getByRole("dialog", { name: "Gemelo digital" })).toBeVisible();
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((animation) => animation.effect?.getComputedTiming().iterations !== Infinity)
+        .map((animation) => animation.finished.catch(() => undefined)),
+    ),
+  );
 
   expect(await seriousViolations(page)).toEqual([]);
 });
