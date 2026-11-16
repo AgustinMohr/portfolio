@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { navItems, profile, siteYear } from "@/lib/data";
 import { ArrowUp, ArrowUpRight, LinkedInIcon, MailIcon } from "./icons";
 import { LocalClock } from "./local-clock";
@@ -96,9 +97,12 @@ export function SiteFooter() {
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ash">
             © {siteYear} {profile.name}
           </p>
-          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ash">
-            {profile.coordinates}
-          </p>
+          <div className="flex items-center gap-5 font-mono text-[10px] uppercase tracking-[0.18em] text-ash">
+            <Link href="/privacidad" className="transition-colors hover:text-acid">
+              Privacidad
+            </Link>
+            <span>{profile.coordinates}</span>
+          </div>
         </div>
       </div>
 

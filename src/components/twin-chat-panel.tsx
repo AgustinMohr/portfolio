@@ -457,7 +457,16 @@ export function TwinChatPanel({ open, onClose }: TwinChatPanelProps) {
         <div className="mt-2 flex items-center justify-between gap-3 px-1">
           <p className="text-[10px] leading-relaxed text-ash">
             Tus mensajes se procesan con OpenRouter y un modelo de IA de
-            terceros. No compartas información sensible. Puede equivocarse.
+            terceros, que puede registrarlos. No compartas información
+            sensible. Puede equivocarse.{" "}
+            <a
+              href="/privacidad"
+              target="_blank"
+              rel="noreferrer"
+              className="underline hover:text-bone"
+            >
+              Privacidad
+            </a>
           </p>
           <p className="hidden font-mono text-[9px] uppercase tracking-[0.14em] text-ash sm:block">
             Enter envía
