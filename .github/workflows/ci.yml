@@ -31,5 +31,5 @@ jobs:
             echo "Secret or system prompt found in the client bundle"
             exit 1
           fi
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium webkit
       - run: npm run test:e2e
