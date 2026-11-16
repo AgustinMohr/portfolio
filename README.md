@@ -12,7 +12,7 @@ El sitio se publica en **Vercel**. Este repositorio es su código fuente.
 - **Perfil:** desarrollo de software y arquitectura de sistemas, con foco en backend y en desarrollo asistido por IA con criterio de ingeniería (Spec-Driven Development, agentes, skills, MCP, guardrails, pruebas y revisión de código).
 - **Stack principal:** Java, Spring Boot, APIs REST, SQL y Git. Conocimientos complementarios de frontend e infraestructura.
 - **Idiomas:** español nativo, inglés avanzado.
-- **Disponibilidad:** pasantías y roles junior. Todavía no tengo experiencia laboral formal: mi recorrido es académico y de aprendizaje autónomo.
+- **Disponibilidad:** disponible. Todavía no tengo experiencia laboral formal: mi recorrido es académico y de aprendizaje autónomo.
 - **Contacto:** [agustinmohr@hotmail.com](mailto:agustinmohr@hotmail.com) · [LinkedIn](https://www.linkedin.com/in/agustin-mohr-tschopp-573806423)
 
 ## Proyectos
