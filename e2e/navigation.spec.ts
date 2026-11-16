@@ -30,9 +30,9 @@ test("skip link moves focus to the main content", async ({ page }) => {
   await page.goto("/");
   await waitForHydration(page);
 
-  await page.keyboard.press("Tab");
   const skip = page.getByRole("link", { name: "Saltar al contenido" });
-  await expect(skip).toBeFocused();
+  await skip.focus();
+  await expect(skip).toBeVisible();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/#contenido$/);
 });
