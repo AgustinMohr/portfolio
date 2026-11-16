@@ -73,6 +73,12 @@ Configurá estas variables en *Project Settings → Environment Variables*:
 
 `.env.example` lista las mismas variables. El archivo `.env` real y `Profile.pdf` están fuera de git.
 
+## Limitaciones conocidas
+
+- **Cupo global del chat:** toda consulta al gemelo cuenta contra el límite global (120 por 10 minutos por defecto), aunque después falle la validación. Un abuso sostenido puede agotar el cupo para todos. Con Upstash el contador es compartido entre instancias; si esto ocurre en la práctica, la mitigación es sumar un CAPTCHA (por ejemplo Cloudflare Turnstile) o subir `TWIN_GLOBAL_RATE_LIMIT`.
+- **Año del pie de página:** el sitio es estático y el año (`siteYear`) se calcula al construir. Cambia recién en el siguiente deploy después del 1 de enero.
+- **Modelos gratuitos:** el gemelo depende de la disponibilidad y los límites de los modelos gratuitos de OpenRouter, y puede tardar o fallar en horas pico. En ese caso el chat ofrece escribirme por email.
+
 ## Calidad
 
 GitHub Actions ejecuta en cada push y pull request: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build` y `npm run test:e2e`.
