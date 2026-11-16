@@ -11,7 +11,7 @@ import {
   createTwinSseParser,
   type TwinSseEvent,
 } from "@/lib/twin-sse";
-import { TWIN_MODEL, TWIN_SYSTEM_PROMPT } from "@/lib/twin-server";
+import { TWIN_MODEL, TWIN_MODELS, TWIN_SYSTEM_PROMPT } from "@/lib/twin-server";
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const UPSTREAM_TIMEOUT_MS = 90_000;
@@ -104,6 +104,7 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         model: TWIN_MODEL,
+        models: TWIN_MODELS,
         messages: [
           { role: "system", content: TWIN_SYSTEM_PROMPT },
           ...messages,

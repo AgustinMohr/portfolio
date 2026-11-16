@@ -1,6 +1,8 @@
 import { profileFacts, type ProfileFacts } from "@/lib/data";
 
 export const TWIN_MODEL = "nvidia/nemotron-3-ultra-550b-a55b:free";
+export const TWIN_FALLBACK_MODELS = ["openrouter/free"] as const;
+export const TWIN_MODELS = [TWIN_MODEL, ...TWIN_FALLBACK_MODELS];
 
 export function buildTwinPrompt(facts: ProfileFacts) {
   const stack = facts.stack.primary.join(", ");

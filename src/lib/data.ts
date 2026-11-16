@@ -181,7 +181,7 @@ export const projects = [
     body: "Gestión de clientes, pedidos, productos y obras, con modelado de datos y reglas de negocio explícitas.",
     tags: ["Microservicios", "Spring Boot", "Java", "SQL", "NoSQL"],
     status: "En preparación",
-    href: "https://github.com/AgustinMohr/sistema-construccion",
+    href: "https://github.com/AgustinMohr/vigadesk",
   },
   {
     index: "02",

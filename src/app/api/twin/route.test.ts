@@ -95,6 +95,32 @@ describe("POST /api/twin", () => {
     ).toBe(false);
   });
 
+  it("sends a free-only model fallback list upstream", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      upstreamResponse(["data: [DONE]\n\n"]),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const response = await POST(
+      jsonRequest({ messages: [{ role: "user", content: "Hola" }] }),
+    );
+    await response.text();
+
+    const init = fetchMock.mock.calls[0][1] as RequestInit;
+    const sent = JSON.parse(String(init.body)) as {
+      model: string;
+      models: string[];
+    };
+
+    expect(sent.models.length).toBeGreaterThan(1);
+    expect(sent.models[0]).toBe(sent.model);
+    for (const model of sent.models) {
+      expect(model.endsWith(":free") || model === "openrouter/free").toBe(
+        true,
+      );
+    }
+  });
+
   it("rejects a chunked body that exceeds the limit", async () => {
     const fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
