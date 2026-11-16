@@ -97,44 +97,6 @@ public/           CV en PDF
 ```
 
 <details>
-<summary><strong>Despliegue en Vercel</strong></summary>
-
-Configurá estas variables en *Project Settings → Environment Variables*:
-
-| Variable | Obligatoria | Uso |
-| --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Sí con dominio propio | Origen público del sitio (por ejemplo `https://agustinmohr.com`). Si falta, se usa el dominio de producción de Vercel (`VERCEL_PROJECT_PRODUCTION_URL`); si tampoco existe, el build falla. |
-| `OPENROUTER_API_KEY` | Sí, para el chat | Clave de OpenRouter, dedicada y con límite de crédito. Solo servidor; nunca con prefijo `NEXT_PUBLIC_`. |
-| `TWIN_TRUST_PROXY` | Recomendada | `true` en Vercel. Sin ella todos los visitantes comparten un único cupo de consultas. |
-| `TWIN_RATE_SALT` | Recomendada | Texto secreto largo y aleatorio. Se usa como sal al hacer el hash de las direcciones antes de guardarlas en el límite de uso. |
-| `TWIN_TRUSTED_PROXY_HOPS` | No | Cantidad de proxies de confianza (por defecto `1`). |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (o `KV_REST_API_URL`, `KV_REST_API_TOKEN`) | Sí en producción | Límite de uso compartido entre instancias. Sin ellas el límite es por instancia serverless y no protege el chat; el servidor lo advierte en los logs. |
-| `TWIN_RATE_LIMIT`, `TWIN_GLOBAL_RATE_LIMIT`, `TWIN_RATE_WINDOW_MS` | No | Límites (por defecto 30 por cliente, 120 global, ventana de 10 min). |
-| `TWIN_ALLOWED_ORIGINS` | No | Orígenes extra permitidos para `/api/twin`, separados por coma. |
-
-`.env.example` lista las mismas variables. Las variables nuevas solo aplican a los deploys posteriores: hacé *Redeploy* después de cambiarlas.
-
-- **Logs:** *Project → Logs* (entorno Production). Las advertencias de proxy no confiable o de Redis ausente se escriben una vez por instancia, en la primera consulta al chat.
-- **Rollback:** *Project → Deployments*, elegí un deploy anterior y usá *Instant Rollback*. No reconstruye el sitio.
-- **Previews:** cada rama y pull request genera una preview. Conviene no cargar la clave de OpenRouter en el entorno Preview, o usar una de bajo límite.
-
-</details>
-
-<details>
-<summary><strong>Limitaciones conocidas</strong></summary>
-
-- **Cupo global del chat:** toda consulta al gemelo cuenta contra el límite global, aunque después falle la validación. Un abuso sostenido puede agotar el cupo para todos. Con Upstash el contador es compartido entre instancias; si ocurre en la práctica, la mitigación es sumar un CAPTCHA (por ejemplo Cloudflare Turnstile) o subir `TWIN_GLOBAL_RATE_LIMIT`.
-- **El origen no es una barrera anti-bots:** la comprobación de `Origin` frena el uso desde otros sitios web, pero un script que no es un navegador puede fabricar esas cabeceras. La defensa real son los límites de uso y el tope de gasto de la clave. Si aparece abuso, la mitigación es Cloudflare Turnstile o Vercel BotID.
-- **Fallback `openrouter/free`:** si el modelo principal no responde, OpenRouter elige cualquier modelo gratuito disponible, de calidad variable. Se mantiene para no dejar el chat sin servicio; el prompt limita lo que puede afirmar y el aviso del chat indica que puede equivocarse.
-- **Inyección de prompt:** el prompt solo contiene datos ya públicos del perfil y el servidor acepta únicamente turnos de usuario, así que el impacto es reputacional, no de seguridad. Está mitigado con reglas defensivas, no eliminado.
-- **Costo del chat:** usa solo modelos gratuitos y un test falla si se agrega uno de pago. Aun así, la clave de OpenRouter debe ser dedicada y tener límite de crédito.
-- **Datos públicos:** el email, el CV (`public/CV-AGUSTIN-MOHR.pdf`) y las coordenadas aproximadas son visibles para cualquiera y pueden ser rastreados por bots de spam. Es una decisión consciente: son mi canal de contacto.
-- **Año del pie de página:** el sitio es estático y el año se calcula al construir; cambia recién en el siguiente deploy después del 1 de enero.
-- **Modelos gratuitos:** el gemelo depende de su disponibilidad y límites, y puede tardar o fallar en horas pico. En ese caso el chat ofrece escribirme por email.
-
-</details>
-
-<details>
 <summary><strong>Privacidad</strong></summary>
 
 - Los mensajes del chat se procesan con OpenRouter y un modelo de IA de terceros. Este sitio no los guarda.
