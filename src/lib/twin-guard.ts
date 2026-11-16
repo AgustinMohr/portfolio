@@ -21,6 +21,7 @@ export type RateLimitDecision = {
 const buckets = new Map<string, Bucket>();
 let lastCleanupAt = 0;
 let redisWarningShown = false;
+let proxyWarningShown = false;
 
 function numberFromEnv(name: string, fallback: number, minimum: number) {
   const parsed = Number(process.env[name]);
@@ -62,8 +63,20 @@ function cleanupExpired(now: number) {
   }
 }
 
+function warnUntrustedProxy() {
+  if (proxyWarningShown || process.env.NODE_ENV !== "production") return;
+
+  proxyWarningShown = true;
+  console.warn(
+    "Twin rate limit: TWIN_TRUST_PROXY is not 'true', so every visitor shares one per-client bucket. Set it behind a trusted proxy (and TWIN_TRUSTED_PROXY_HOPS if needed).",
+  );
+}
+
 function readClientKey(request: Request) {
-  if (process.env.TWIN_TRUST_PROXY !== "true") return "untrusted";
+  if (process.env.TWIN_TRUST_PROXY !== "true") {
+    warnUntrustedProxy();
+    return "untrusted";
+  }
 
   const hops = numberFromEnv("TWIN_TRUSTED_PROXY_HOPS", 1, 1);
   const forwarded = request.headers.get("x-forwarded-for");
