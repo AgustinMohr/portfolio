@@ -33,8 +33,50 @@ describe("checkTwinRateLimit", () => {
     await checkTwinRateLimit(request());
     await checkTwinRateLimit(request());
 
-    expect(warn).toHaveBeenCalledTimes(1);
-    expect(String(warn.mock.calls[0][0])).toContain("TWIN_TRUST_PROXY");
+    const proxyWarnings = warn.mock.calls.filter((call) =>
+      String(call[0]).includes("TWIN_TRUST_PROXY"),
+    );
+    expect(proxyWarnings).toHaveLength(1);
+  });
+
+  it("warns once in production when Upstash is not configured", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("TWIN_TRUST_PROXY", "true");
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const { checkTwinRateLimit } = await loadGuard();
+
+    await checkTwinRateLimit(request({ "x-forwarded-for": "203.0.113.9" }));
+    await checkTwinRateLimit(request({ "x-forwarded-for": "203.0.113.9" }));
+
+    const messages = warn.mock.calls.map((call) => String(call[0]));
+    expect(messages.filter((m) => m.includes("Upstash"))).toHaveLength(1);
+  });
+
+  it("uses Vercel KV variable names when Upstash ones are missing", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("TWIN_TRUST_PROXY", "true");
+    vi.stubEnv("KV_REST_API_URL", "https://redis.example/");
+    vi.stubEnv("KV_REST_API_TOKEN", "token");
+    const fetchMock = vi.fn().mockResolvedValue(
+      Response.json([
+        { result: 1 },
+        { result: 1 },
+        { result: 1 },
+        { result: 1 },
+      ]),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const { checkTwinRateLimit } = await loadGuard();
+
+    const decision = await checkTwinRateLimit(
+      request({ "x-forwarded-for": "203.0.113.9" }),
+    );
+
+    expect(decision.allowed).toBe(true);
+    expect(String(fetchMock.mock.calls[0]?.[0])).toBe(
+      "https://redis.example/pipeline",
+    );
+    vi.unstubAllGlobals();
   });
 
   it("does not warn outside production", async () => {

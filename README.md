@@ -67,7 +67,7 @@ Configurá estas variables en *Project Settings → Environment Variables*:
 | `OPENROUTER_API_KEY` | Sí, para el chat | Clave de OpenRouter. Solo servidor; nunca con prefijo `NEXT_PUBLIC_`. |
 | `TWIN_TRUST_PROXY` | Recomendada | `true` en Vercel. Sin ella todos los visitantes comparten un único cupo de consultas. |
 | `TWIN_TRUSTED_PROXY_HOPS` | No | Cantidad de proxies de confianza (por defecto `1`). |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Recomendadas | Límite de uso durable entre instancias; sin ellas se usa memoria por instancia. |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (o `KV_REST_API_URL`, `KV_REST_API_TOKEN`) | Sí en producción | Límite de uso compartido entre instancias. Sin ellas el límite es por instancia serverless y no protege el chat en Vercel; el servidor lo advierte en los logs. |
 | `TWIN_RATE_LIMIT`, `TWIN_GLOBAL_RATE_LIMIT`, `TWIN_RATE_WINDOW_MS` | No | Límites (por defecto 30 por cliente, 120 global, ventana de 10 min). |
 | `TWIN_ALLOWED_ORIGINS` | No | Orígenes extra permitidos para `/api/twin`, separados por coma. |
 

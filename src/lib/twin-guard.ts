@@ -22,6 +22,7 @@ const buckets = new Map<string, Bucket>();
 let lastCleanupAt = 0;
 let redisWarningShown = false;
 let proxyWarningShown = false;
+let redisMissingWarningShown = false;
 
 function numberFromEnv(name: string, fallback: number, minimum: number) {
   const parsed = Number(process.env[name]);
@@ -69,6 +70,27 @@ function warnUntrustedProxy() {
   proxyWarningShown = true;
   console.warn(
     "Twin rate limit: TWIN_TRUST_PROXY is not 'true', so every visitor shares one per-client bucket. Set it behind a trusted proxy (and TWIN_TRUSTED_PROXY_HOPS if needed).",
+  );
+}
+
+function getRedisConfig() {
+  const url = (
+    process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL
+  )?.replace(/\/+$/, "");
+  const token =
+    process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+
+  return url && token ? { url, token } : null;
+}
+
+function warnMissingRedis() {
+  if (redisMissingWarningShown || process.env.NODE_ENV !== "production") {
+    return;
+  }
+
+  redisMissingWarningShown = true;
+  console.warn(
+    "Twin rate limit: no Upstash Redis configured. Limits are per serverless instance and do not protect the chat on Vercel. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.",
   );
 }
 
@@ -170,10 +192,14 @@ async function redisDecision(
   windowMs: number,
   now: number,
 ): Promise<RateLimitDecision | null> {
-  const url = process.env.UPSTASH_REDIS_REST_URL?.replace(/\/+$/, "");
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  const redis = getRedisConfig();
 
-  if (!url || !token) return null;
+  if (!redis) {
+    warnMissingRedis();
+    return null;
+  }
+
+  const { url, token } = redis;
 
   const windowBucket = Math.floor(now / windowMs);
   const windowEnd = (windowBucket + 1) * windowMs;
