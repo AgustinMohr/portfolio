@@ -24,6 +24,7 @@ describe("security headers", () => {
     );
     expect(headers.get("Permissions-Policy")).toContain("camera=()");
     expect(headers.get("X-Frame-Options")).toBe("DENY");
+    expect(headers.get("Cross-Origin-Opener-Policy")).toBe("same-origin");
     expect(headers.get("Strict-Transport-Security")).toContain("max-age=");
   });
 });
