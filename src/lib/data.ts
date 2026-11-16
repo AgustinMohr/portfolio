@@ -67,7 +67,7 @@ export const profileFacts = {
   availability: profile.availability,
   interests: ["la lectura", "el pádel", "el ajedrez", "mezclar música"],
   projects:
-    "casos de estudio en preparación sobre APIs con Spring Boot, sistemas de gestión y flujos de ingeniería asistida por IA. No hay resultados, métricas, clientes ni empresas inventadas.",
+    "dos proyectos con repositorio en GitHub: VigaDesk (plataforma B2B para corralones con gestión de clientes, pedidos, productos y obras; microservicios con Java y Spring Boot, SQL y NoSQL) y Clase Ya, una plataforma que conecta estudiantes con profesores particulares (Java, Spring Boot, React, PostgreSQL). Los casos de estudio están en preparación. No hay resultados, métricas, clientes ni empresas inventadas.",
 } satisfies ProfileFacts;
 
 export const navItems = [
@@ -176,31 +176,21 @@ export const stackGroups = [
 export const projects = [
   {
     index: "01",
-    title: "API de gestión",
-    kicker: "Servicios REST con Spring Boot",
-    body: "Diseño de dominio, persistencia y contratos de API con foco en claridad, seguridad y mantenibilidad.",
-    tags: ["Java", "Spring Boot", "REST", "SQL"],
+    title: "VigaDesk",
+    kicker: "Plataforma B2B para corralones",
+    body: "Gestión de clientes, pedidos, productos y obras, con modelado de datos y reglas de negocio explícitas.",
+    tags: ["Microservicios", "Spring Boot", "Java", "SQL", "NoSQL"],
     status: "En preparación",
-    href: profile.linkedin,
+    href: "https://github.com/AgustinMohr/sistema-construccion",
   },
   {
     index: "02",
-    title: "Sistema de gestión",
-    kicker: "Flujos operativos reales",
-    body: "Modelado de datos y lógica de negocio para procesos que necesitan orden, trazabilidad y reglas explícitas.",
-    tags: ["Arquitectura", "Backend", "SQL"],
+    title: "Clase Ya",
+    kicker: "Plataforma de clases particulares",
+    body: "Plataforma que conecta estudiantes con profesores particulares en diversas materias.",
+    tags: ["Java", "Spring Boot", "React", "PostgreSQL"],
     status: "En preparación",
-    href: profile.linkedin,
-  },
-  {
-    index: "03",
-    title: "AI-assisted workflow",
-    kicker: "Ingeniería con agentes",
-    body: "Spec-driven development, skills y guardrails para que la IA acelere sin romper el proceso ni la calidad.",
-    tags: ["SDD", "MCP", "AI Agents", "Guardrails"],
-    status: "En preparación",
-    href: profile.linkedin,
+    href: "https://github.com/AgustinMohr/clase-ya",
   },
 ] as const;
-
 

@@ -46,3 +46,14 @@ next-env.d.ts
 
 # private source document (contains PII); never commit or serve
 Profile.pdf
+# codegraph index
+/.codegraph/
+
+# local agent instructions
+CLAUDE.md
+AGENTS.md
+TUTORIAL.md
+review.md
+/.claude
+.claudeignore
+opencode.json
