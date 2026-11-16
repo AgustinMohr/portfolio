@@ -22,12 +22,41 @@ test("projects point to their GitHub repositories and are marked in preparation"
   }
 });
 
-test("the CV request opens a prefilled email", async ({ page }) => {
-  const cv = page.locator("#portafolio").getByRole("link", { name: /Solicitar CV/ });
-  const href = (await cv.getAttribute("href")) ?? "";
+test("the CV asks for confirmation before downloading", async ({ page }) => {
+  const trigger = page.getByRole("button", { name: /Descargar CV/ });
+  await trigger.click();
 
-  expect(href.startsWith("mailto:agustinmohr@hotmail.com?subject=")).toBe(true);
-  expect(decodeURIComponent(href)).toContain("CV — Agustín Mohr Tschopp");
+  const dialog = page.getByRole("dialog", { name: "Descargar mi CV" });
+  await expect(dialog).toBeVisible();
+  await expect(dialog).toContainText("CV-AGUSTIN-MOHR.pdf");
+
+  await dialog.getByRole("button", { name: "Cancelar" }).click();
+  await expect(dialog).toBeHidden();
+  await expect(trigger).toBeFocused();
+
+  await trigger.click();
+  await page.keyboard.press("Escape");
+  await expect(dialog).toBeHidden();
+});
+
+test("accepting the dialog downloads the CV PDF", async ({ page }) => {
+  await page.getByRole("button", { name: /Descargar CV/ }).click();
+  const dialog = page.getByRole("dialog", { name: "Descargar mi CV" });
+
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    dialog.getByRole("link", { name: "Aceptar" }).click(),
+  ]);
+
+  expect(download.suggestedFilename()).toBe("CV-AGUSTIN-MOHR.pdf");
+  await expect(dialog).toBeHidden();
+});
+
+test("the CV file is served as a PDF", async ({ request }) => {
+  const response = await request.get("/CV-AGUSTIN-MOHR.pdf");
+
+  expect(response.status()).toBe(200);
+  expect(response.headers()["content-type"]).toContain("application/pdf");
 });
 
 test("contact channels expose LinkedIn and email", async ({ page }) => {

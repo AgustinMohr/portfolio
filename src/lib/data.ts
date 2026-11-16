@@ -14,6 +14,8 @@ export const profile = {
   email: "agustinmohr@hotmail.com",
   linkedin: "https://www.linkedin.com/in/agustin-mohr-tschopp-573806423",
   github: "https://github.com/AgustinMohr",
+  cvPath: "/CV-AGUSTIN-MOHR.pdf",
+  cvFileName: "CV-AGUSTIN-MOHR.pdf",
   availability: "Disponible",
   availabilityLabel: "Disponible",
   description:

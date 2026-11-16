@@ -3,6 +3,7 @@ import {
   LinkedInIcon,
   MailIcon,
 } from "@/components/icons";
+import { CvDownload } from "@/components/cv-download";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
 import { profile, projects, siteYear } from "@/lib/data";
@@ -21,14 +22,6 @@ const channels = [
     title: "Contacto directo",
     hint: profile.email,
     href: `mailto:${profile.email}`,
-    external: false,
-    icon: MailIcon,
-  },
-  {
-    label: "CV",
-    title: "Solicitar CV",
-    hint: "Disponible a pedido.",
-    href: `mailto:${profile.email}?subject=${encodeURIComponent("CV — Agustín Mohr Tschopp")}`,
     external: false,
     icon: MailIcon,
   },
@@ -150,6 +143,7 @@ export function Portfolio() {
               </a>
             );
           })}
+          <CvDownload />
         </div>
 
         <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-ash">
