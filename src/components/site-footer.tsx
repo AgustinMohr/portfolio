@@ -38,12 +38,12 @@ export function SiteFooter() {
 
           <div className="lg:col-span-3">
             <p className="label text-ash">Navegación</p>
-            <ul className="mt-5 space-y-3">
+            <ul className="mt-4 space-y-1">
               {navItems.map((item) => (
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    className="link-line text-sm text-bone/80 hover:text-bone"
+                    className="link-line inline-flex py-2 text-sm text-bone/80 hover:text-bone"
                   >
                     {item.label}
                   </a>
@@ -55,10 +55,10 @@ export function SiteFooter() {
           <div className="flex flex-col justify-between gap-10 lg:col-span-4">
             <div>
               <p className="label text-ash">Contacto directo</p>
-              <div className="mt-5 space-y-3">
+              <div className="mt-4 flex flex-col items-start gap-1">
                 <a
                   href={`mailto:${profile.email}`}
-                  className="link-line w-fit text-base text-bone"
+                  className="link-line inline-flex w-fit py-2 text-base text-bone"
                 >
                   <MailIcon className="h-4 w-4 text-acid" />
                   {profile.email}
@@ -67,7 +67,7 @@ export function SiteFooter() {
                   href={profile.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="link-line w-fit text-base text-bone"
+                  className="link-line inline-flex w-fit py-2 text-base text-bone"
                 >
                   <LinkedInIcon className="h-4 w-4 text-acid" />
                   LinkedIn
@@ -98,7 +98,7 @@ export function SiteFooter() {
             © {siteYear} {profile.name}
           </p>
           <div className="flex items-center gap-5 font-mono text-xs uppercase tracking-[0.18em] text-ash">
-            <Link href="/privacidad" className="transition-colors hover:text-acid">
+            <Link href="/privacidad" className="inline-flex py-2 transition-colors hover:text-acid">
               Privacidad
             </Link>
             <span>{profile.coordinates}</span>

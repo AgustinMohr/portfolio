@@ -59,7 +59,7 @@ export function Contact() {
                   <div className="flex flex-wrap items-center gap-3">
                     <a
                       href={`mailto:${profile.email}`}
-                      className="link-line text-sm text-bone"
+                      className="link-line inline-flex py-2 text-sm text-bone"
                     >
                       <MailIcon className="h-4 w-4 text-acid" />
                       {profile.email}
@@ -74,7 +74,7 @@ export function Contact() {
                     href={profile.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    className="link-line w-fit text-sm text-bone"
+                    className="link-line inline-flex w-fit py-2 text-sm text-bone"
                   >
                     <LinkedInIcon className="h-4 w-4 text-acid" />
                     /in/agustin-mohr-tschopp
