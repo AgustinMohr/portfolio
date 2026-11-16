@@ -69,4 +69,21 @@ describe("streamTwinReply", () => {
       streamTwinReply(messages, new AbortController().signal, () => undefined),
     ).rejects.toThrow("vino vacía");
   });
+
+  it("replaces a raw network failure with a readable message", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("Failed to fetch")));
+
+    await expect(
+      streamTwinReply(messages, new AbortController().signal, () => undefined),
+    ).rejects.toThrow("No pude conectarme");
+  });
+
+  it("keeps abort errors so the UI can tell a stop from a failure", async () => {
+    const abort = new DOMException("aborted", "AbortError");
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(abort));
+
+    await expect(
+      streamTwinReply(messages, new AbortController().signal, () => undefined),
+    ).rejects.toMatchObject({ name: "AbortError" });
+  });
 });

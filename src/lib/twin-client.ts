@@ -1,4 +1,5 @@
 const DEFAULT_ERROR = "No pude responder en este momento.";
+const NETWORK_ERROR = "No pude conectarme. Revisá tu conexión y probá de nuevo.";
 
 type UserMessage = { role: "user"; content: string };
 
@@ -12,6 +13,9 @@ export async function streamTwinReply(
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ messages }),
     signal,
+  }).catch((caught: unknown) => {
+    if (caught instanceof Error && caught.name === "AbortError") throw caught;
+    throw new Error(NETWORK_ERROR);
   });
 
   if (!response.ok) {
