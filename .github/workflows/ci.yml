@@ -8,28 +8,80 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEXT_PUBLIC_SITE_URL: https://portfolio.example
+
 jobs:
-  verify:
+  quality:
+    name: Lint, types and unit tests
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_SITE_URL: https://portfolio.example
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 24
           cache: npm
       - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
-      - run: npm test
+      - run: npm run coverage
+
+  audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    continue-on-error: ${{ github.event_name == 'pull_request' }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
       - run: npm audit --omit=dev --audit-level=high
+
+  e2e:
+    name: Build, bundle scan and e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
       - run: npm run build
-      - name: Check the client bundle for secrets and the system prompt
+      - name: Check the client bundle and prerendered pages for secrets and the system prompt
         run: |
-          if grep -rlE "sk-or-v1-|OPENROUTER_API_KEY|Sos el gemelo digital|Reglas de respuesta" .next/static; then
-            echo "Secret or system prompt found in the client bundle"
+          mkdir .scan-check
+          echo 'const key = "sk-or-v1-0123456789abcdef";' > .scan-check/fake.js
+          if node scripts/scan-bundle.mjs .scan-check; then
+            echo "Scanner failed to detect a planted key"
             exit 1
           fi
+          rm -rf .scan-check
+          node scripts/scan-bundle.mjs .next/static .next/server/app
+      - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium webkit
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+      - run: npx playwright install-deps chromium webkit
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
       - run: npm run test:e2e
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        if: failure()
+        with:
+          name: playwright-traces
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
