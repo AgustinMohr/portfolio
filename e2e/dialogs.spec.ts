@@ -59,7 +59,7 @@ test("mobile menu is modal and restores focus", async ({ page }) => {
   await expect(toggle).toBeFocused();
 });
 
-test("hides the floating launcher over the contact section", async ({ page }) => {
+test("keeps the floating launcher visible over the contact section", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   await waitForHydration(page);
@@ -68,7 +68,10 @@ test("hides the floating launcher over the contact section", async ({ page }) =>
   const trigger = page.getByRole("button", { name: "Abrir gemelo digital" });
 
   await trigger.scrollIntoViewIfNeeded();
-  await expect(launcher).toBeHidden();
+  await expect(launcher).toBeVisible();
+  await page.locator("footer").scrollIntoViewIfNeeded();
+  await expect(launcher).toBeVisible();
+  await trigger.scrollIntoViewIfNeeded();
 
   await trigger.click();
   const dialog = page.getByRole("dialog", { name: "Gemelo digital" });
@@ -102,3 +105,26 @@ test("chat loads on demand and isolates the page", async ({ page }) => {
   await expect(dialog).toBeHidden();
   await expect(launcher).toBeFocused();
 });
+
+for (const height of [844, 600, 480]) {
+  test(`mobile menu keeps its sections apart at ${height}px of height`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height });
+    await page.goto("/");
+    await waitForHydration(page);
+    await page.locator('button[aria-controls="mobile-menu"]').click();
+
+    const dialog = page.getByRole("dialog", { name: "Menú de navegación" });
+    await expect(dialog).toBeVisible();
+
+    const gap = await page.evaluate(() => {
+      const menu = document.querySelector("#mobile-menu");
+      const nav = menu?.querySelector("nav");
+      const status = menu?.querySelector(".pulse-dot");
+      if (!nav || !status) return -1;
+      return (
+        status.getBoundingClientRect().top - nav.getBoundingClientRect().bottom
+      );
+    });
+    expect(gap).toBeGreaterThanOrEqual(40);
+  });
+}

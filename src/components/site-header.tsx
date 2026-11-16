@@ -183,7 +183,7 @@ export function SiteHeader() {
             event.preventDefault();
             closeMenu();
           }}
-          className="fixed inset-0 z-40 m-0 h-full max-h-none w-full max-w-none overflow-y-auto border-0 bg-void/95 p-0 backdrop-blur-2xl lg:hidden"
+          className="menu-dialog fixed inset-0 z-40 m-0 max-h-none w-full max-w-none overflow-y-auto border-0 bg-void/95 p-0 backdrop-blur-2xl lg:hidden"
         >
           <div className="grid-lines grid-mask absolute inset-0 opacity-40" />
           <button
@@ -194,7 +194,7 @@ export function SiteHeader() {
           >
             <CloseIcon className="h-4 w-4" />
           </button>
-          <div className="shell relative flex h-full flex-col justify-between pb-10 pt-28">
+          <div className="shell relative flex min-h-full flex-col justify-between gap-12 pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-28">
             <nav className="flex flex-col" aria-label="Secciones">
               {navItems.map((item, index) => (
                 <a

@@ -261,6 +261,11 @@ dialog::backdrop {
   mask-image: radial-gradient(ellipse 75% 70% at 50% 40%, black 20%, transparent 75%);
 }
 
+.menu-dialog {
+  height: 100%;
+  height: 100dvh;
+}
+
 .grain {
   position: fixed;
   inset: 0;
